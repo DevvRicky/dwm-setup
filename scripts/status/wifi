@@ -1,0 +1,12 @@
+#!/bin/sh
+
+if [ -n "$BLOCK_BUTTON" ]; then
+    nohup kitty --class impala -e impala >/dev/null 2>&1 &
+fi
+
+ssid=$(iwctl station wlo1 show | awk '/Connected network/ {$1=""; $2=""; sub(/^[ \t]+/, ""); print}')
+if [ -n "$ssid" ]; then
+    printf " %s" "$ssid"
+else
+    printf "󰖪 Disconnected"
+fi

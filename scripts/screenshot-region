@@ -1,0 +1,9 @@
+#!/bin/bash
+# Region screenshot.
+# Captures the screen as composited by picom (transparency/blur intact),
+# so the compositor is never touched.
+# Saves to ~/Pictures/ScreenShots and copies to the clipboard.
+dir="$HOME/Pictures/ScreenShots"
+mkdir -p "$dir"
+file="$dir/$(date +%Y-%m-%d_%H-%M-%S).png"
+scrot -z -s "$file" && xclip -selection clipboard -t image/png < "$file"

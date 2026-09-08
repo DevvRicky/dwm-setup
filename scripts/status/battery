@@ -1,0 +1,20 @@
+#!/bin/sh
+
+BAT="/sys/class/power_supply/BAT1"
+
+capacity=$(cat "$BAT/capacity")
+status=$(cat "$BAT/status")
+
+if [ "$status" = "Charging" ] && [ "$capacity" -lt 100 ]; then
+    icon="󰂄"
+elif [ "$capacity" -eq 100 ] || [ "$status" = "Full" ]; then
+    icon="󰁹"
+elif [ "$capacity" -gt 50 ]; then
+    icon="󰁿"
+elif [ "$capacity" -gt 20 ]; then
+    icon="󰁼"
+else
+    icon="󰁻"
+fi
+
+printf "%s %d%%" "$icon" "$capacity"

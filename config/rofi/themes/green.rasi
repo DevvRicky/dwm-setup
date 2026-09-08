@@ -1,0 +1,92 @@
+* {
+    /*Colors*/
+    bg0:       #06080695;
+    colGry:    #82a471;
+    colBlu:    #82a471;
+    colBlu1:   #444444;
+    colWhi1:   #DEDEDE;
+    colWhi2:   #FFFFFF;
+    colWhi3:   #82a471;
+
+    background-color:   transparent;
+    text-color:         @colWhi1;
+    
+    margin:     0;
+    padding:    0;
+    spacing:    0;
+}
+
+window {
+    background-color:   @bg0;
+    width:          250;
+    border:		2px;
+    border-color:	@colWhi3;
+}
+
+inputbar {
+    padding:    8px;
+    spacing:    4px;
+}
+
+icon-search {
+    expand:     true;
+    filename:   "search";
+    size: 10px;
+}
+
+icon-search, entry, element-icon, element-text {
+    vertical-align: 0.5;
+}
+
+entry {
+    font:   inherit;
+
+    placeholder         : "Search";
+    placeholder-color   : @colWhi3;
+}
+
+message {
+    border:             5px 0 0;
+    border-color:       @colGry;
+    background-color:   @colGry;
+}
+
+textbox {
+    padding:    8px 20px;
+}
+
+listview {
+    lines:      10;
+    columns:    1;
+
+    fixed-height:   false;
+    border:         2px 0 0;
+    border-color:   @colGry;
+}
+
+element {
+    padding:            9px 9px;
+    spacing:            5px;
+    background-color:   transparent;
+}
+
+element normal active {
+    text-color: @colBlu;
+}
+
+element alternate active {
+    text-color: @colBlu;
+}
+
+element selected normal, element selected active {
+    background-color:   @colBlu;
+    text-color:         @colWhi2;
+}
+
+element-icon {
+    size:   1em;
+}
+
+element-text {
+    text-color: inherit;
+}

@@ -1,0 +1,14 @@
+#!/bin/sh
+
+case "$BLOCK_BUTTON" in
+    1) dunstctl history | rofi -dunst -config "$HOME/.config/rofi/dunst.rasi" ;;
+    2) dunstctl close-all ;;
+esac
+
+count=$(dunstctl count 2>/dev/null)
+
+if [ "$count" -gt 0 ] 2>/dev/null; then
+    printf "󰂜 %s" "$count"
+else
+    printf "󰂞"
+fi

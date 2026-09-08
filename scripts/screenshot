@@ -1,0 +1,40 @@
+#!/bin/bash
+# Screenshot of the currently focused monitor.
+# Captures the screen as composited by picom (transparency/blur intact),
+# so the compositor is never touched. Falls back to a full multi-monitor
+# capture if focus can't be determined.
+# Saves to ~/Pictures/ScreenShots and copies to the clipboard.
+dir="$HOME/Pictures/ScreenShots"
+mkdir -p "$dir"
+file="$dir/$(date +%Y-%m-%d_%H-%M-%S).png"
+
+geom=""
+fid=$(xdpyinfo 2>/dev/null | sed -n 's/.*focus: *window \(0x[0-9a-fA-F]\+\).*/\1/p')
+if [ -n "$fid" ]; then
+    info=$(xwininfo -id "$fid" 2>/dev/null)
+    if [ -n "$info" ]; then
+        fx=$(awk '/Absolute upper-left X/{print $NF}' <<<"$info")
+        fy=$(awk '/Absolute upper-left Y/{print $NF}' <<<"$info")
+        fw=$(awk '/^ *Width:/{print $NF}' <<<"$info")
+        fh=$(awk '/^ *Height:/{print $NF}' <<<"$info")
+        if [ -n "$fx" ] && [ -n "$fy" ] && [ -n "$fw" ] && [ -n "$fh" ]; then
+            cx=$((fx + fw / 2))
+            cy=$((fy + fh / 2))
+            while read -r mgeom; do
+                read -r mw mh mx my <<<"$(sed -nE 's/^([0-9]+)x([0-9]+)([+-][0-9]+)([+-][0-9]+)$/\1 \2 \3 \4/p' <<<"$mgeom")"
+                [ -n "$mx" ] || continue
+                if (( cx >= mx && cx <= mx + mw && cy >= my && cy <= my + mh )); then
+                    geom="$mx,$my,$mw,$mh"
+                    break
+                fi
+            done <<<"$(xrandr --query 2>/dev/null | grep -E ' connected ' | grep -oE '[0-9]+x[0-9]+[+-][0-9]+[+-][0-9]+')"
+        fi
+    fi
+fi
+
+if [ -n "$geom" ]; then
+    scrot -z -a "$geom" "$file"
+else
+    scrot -z "$file"
+fi
+xclip -selection clipboard -t image/png < "$file"

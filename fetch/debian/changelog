@@ -1,0 +1,23 @@
+fetch (2.3.0) noble; urgency=medium
+
+  * Update to 2.3.0.
+
+ -- Youssef Tarek <amazingritro66@gmail.com>  Fri, 21 Aug 2026 23:11:10 +0300
+
+fetch (2.2.1) noble; urgency=medium
+
+  * Update to 2.2.1.
+
+ -- Youssef Tarek <amazingritro66@gmail.com>  Fri, 24 Jul 2026 21:44:30 +0300
+
+fetch (2.2.0.1) noble; urgency=medium
+
+  * Fix Homepage field in debian/control to point at the upstream repo.
+
+ -- Youssef Tarek <amazingritro66@gmail.com>  Fri, 24 Jul 2026 18:08:01 +0300
+
+fetch (2.2.0) noble; urgency=medium
+
+  * Initial Debian/Ubuntu packaging.
+
+ -- Youssef Tarek <amazingritro66@gmail.com>  Thu, 23 Jul 2026 23:21:34 +0300

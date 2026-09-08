@@ -1,0 +1,58 @@
+#!/bin/bash
+# Toggle GPU screen recording of the currently focused (used) monitor.
+# Records to ~/Videos/ScreenRecords.
+# Bind to a key (e.g. MODKEY+y) in dwm config.h.
+
+dir="$HOME/Videos/ScreenRecords"
+mkdir -p "$dir"
+
+pidfile="$HOME/.cache/gpu-screen-recorder.pid"
+
+# If already recording -> stop and save, then exit.
+if [ -f "$pidfile" ] && kill -0 "$(cat "$pidfile")" 2>/dev/null; then
+    kill -INT "$(cat "$pidfile")"
+    rm -f "$pidfile"
+    notify-send "Screen Recording" "Stopped. Files saved to $dir"
+    exit 0
+fi
+
+# Determine the currently focused (used) monitor geometry.
+geom=""
+fid=$(xdpyinfo 2>/dev/null | sed -n 's/.*focus: *window \(0x[0-9a-fA-F]\+\).*/\1/p')
+if [ -n "$fid" ]; then
+    info=$(xwininfo -id "$fid" 2>/dev/null)
+    if [ -n "$info" ]; then
+        fx=$(awk '/Absolute upper-left X/{print $NF}' <<<"$info")
+        fy=$(awk '/Absolute upper-left Y/{print $NF}' <<<"$info")
+        fw=$(awk '/^ *Width:/{print $NF}' <<<"$info")
+        fh=$(awk '/^ *Height:/{print $NF}' <<<"$info")
+        if [ -n "$fx" ] && [ -n "$fy" ] && [ -n "$fw" ] && [ -n "$fh" ]; then
+            cx=$((fx + fw / 2))
+            cy=$((fy + fh / 2))
+            while read -r mgeom; do
+                read -r mw mh mx my <<<"$(sed -nE 's/^([0-9]+)x([0-9]+)([+-][0-9]+)([+-][0-9]+)$/\1 \2 \3 \4/p' <<<"$mgeom")"
+                [ -n "$mx" ] || continue
+                if (( cx >= mx && cx <= mx + mw && cy >= my && cy <= my + mh )); then
+                    geom="$mx,$my,$mw,$mh"
+                    break
+                fi
+            done <<<"$(xrandr --query 2>/dev/null | grep -E ' connected ' | grep -oE '[0-9]+x[0-9]+[+-][0-9]+[+-][0-9]+')"
+        fi
+    fi
+fi
+
+file="$dir/screenrecord_$(date +%Y-%m-%d_%H-%M-%S).mp4"
+
+if [ -n "$geom" ]; then
+    gpu-screen-recorder -w region -region "$geom" \
+        -a default_output -a default_input \
+        -c mp4 -f 60 -q very_high -o "$file" &
+else
+    # Fallback: record the currently focused window/monitor.
+    gpu-screen-recorder -w focused \
+        -a default_output -a default_input \
+        -c mp4 -f 60 -q very_high -o "$file" &
+fi
+
+echo $! > "$pidfile"
+notify-send "Screen Recording" "Recording started -> $file"

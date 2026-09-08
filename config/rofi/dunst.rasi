@@ -1,0 +1,65 @@
+configuration {
+    show-icons: true;
+    font: "JetBrainsMono Nerd Font Medium 11";
+    monitor: -4;
+}
+
+* {
+    bg0:       #00000090;
+    colGry:    #82a471;
+    colBlu:    #82a471;
+    colWhi1:   #DEDEDE;
+    colWhi2:   #FFFFFF;
+    colWhi3:   #82a471;
+
+    background-color:   transparent;
+    text-color:         @colWhi1;
+    
+    margin:     0;
+    padding:    0;
+    spacing:    0;
+}
+
+window {
+    background-color:   @bg0;
+    width:          500;
+    border:         1px;
+    border-color:   @colWhi3;
+}
+
+inputbar {
+    padding:    10px;
+    spacing:    4px;
+}
+
+entry {
+    placeholder         : "Search notifications...";
+    placeholder-color   : @colWhi3;
+}
+
+listview {
+    lines:      10;
+    columns:    1;
+    fixed-height:   false;
+    border:         1px 0 0;
+    border-color:   @colGry;
+}
+
+element {
+    padding:            8px 8px;
+    spacing:            8px;
+    background-color:   transparent;
+}
+
+element selected normal, element selected active {
+    background-color:   @colBlu;
+    text-color:         @colWhi2;
+}
+
+element-icon {
+    size:   1em;
+}
+
+element-text {
+    text-color: inherit;
+}

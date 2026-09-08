@@ -1,0 +1,32 @@
+#!/bin/sh
+
+confirm() {
+	printf 'Yes\nNo\n' | rofi \
+		-dmenu \
+		-p "$1?" \
+		-mesg "$2" \
+		-theme /home/fierzza/.config/rofi/themes/green.rasi \
+		-select "Yes"
+}
+
+entry=$(printf 'Shutdown\nRestart\n' | rofi \
+	-dmenu \
+	-p "Power" \
+	-mesg "Select an action" \
+	-theme /home/fierzza/.config/rofi/themes/green.rasi)
+
+case "$entry" in
+	Shutdown)
+		if [ "$(confirm "Shutdown" "Power off the machine?")" = "Yes" ]; then
+			sudo shutdown -P now
+		fi
+		;;
+	Restart)
+		if [ "$(confirm "Restart" "Restart the machine?")" = "Yes" ]; then
+			sudo shutdown -r now
+		fi
+		;;
+	*)
+		exit 0
+		;;
+esac

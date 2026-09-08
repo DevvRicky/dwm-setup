@@ -1,0 +1,22 @@
+# Build artifacts
+*.o
+*.class
+*.so
+build/
+dwm/dwm
+dmenu/dmenu
+dmenu/dmenu_run
+dmenu/dmenu_path
+dmenu/stest
+fetch/fetch
+
+# Generated / runtime state
+config/nvim/lua/config/saved_theme
+
+# Backups
+*.bak
+*-original
+
+# Editors / OS
+.DS_Store
+*.swp

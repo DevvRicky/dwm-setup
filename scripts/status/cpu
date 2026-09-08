@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if [ -n "$BLOCK_BUTTON" ]; then
+    nohup kitty -e btop >/dev/null 2>&1 &
+fi
+
+top -bn1 | awk -F',' '/Cpu/ {
+    gsub(/ /, "", $4)
+    printf " %.0f%%", 100 - $4
+}'

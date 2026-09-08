@@ -1,0 +1,12 @@
+configuration {
+    display-drun: " ";
+    display-window: " ";
+    drun-display-format: "{icon} {name}";
+    font: "JetBrainsMono Nerd Font Medium 11"; 
+    monitor: -4;
+    show-icons: true;
+}
+
+
+//@theme "/usr/share/rofi/themes/Adapta-Nokto.rasi"
+@theme "/home/fierzza/.config/rofi/themes/green.rasi"

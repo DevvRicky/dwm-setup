@@ -1,0 +1,218 @@
+#!/usr/bin/env bash
+
+set -e
+
+read -rp "Project location: " LOCATION
+read -rp "Project name: " NAME
+
+echo
+echo "1) JavaScript"
+echo "2) C"
+echo "3) C++"
+echo "4) Python"
+echo "5) Java"
+echo "6) Rust"
+echo "7) Lua"
+echo "8) Astro"
+echo "9) Angular"
+
+read -rp "Choice: " CHOICE
+
+PROJECT="$LOCATION/$NAME"
+
+if [ -e "$PROJECT" ]; then
+    echo "Project already exists."
+    exit 1
+fi
+
+mkdir -p "$PROJECT"
+cd "$PROJECT"
+
+case $CHOICE in
+
+1)
+mkdir src
+
+cat > src/index.js <<EOF
+console.log("Hello, World!");
+EOF
+
+cat > package.json <<EOF
+{
+  "name":"$NAME",
+  "version":"1.0.0",
+  "scripts":{
+    "start":"node src/index.js"
+  }
+}
+EOF
+
+cat > .compile <<EOF
+npm start
+EOF
+;;
+
+2)
+mkdir src
+
+cat > src/main.c <<EOF
+#include <stdio.h>
+
+int main() {
+    printf("Hello, World!\\n");
+    return 0;
+}
+EOF
+
+cat > Makefile <<EOF
+CC=gcc
+CFLAGS=-Wall -Wextra -g
+
+TARGET=$NAME
+SRC=\$(wildcard src/*.c)
+
+all:
+\t\$(CC) \$(CFLAGS) \$(SRC) -o \$(TARGET)
+
+run: all
+\t./\$(TARGET)
+
+clean:
+\trm -f \$(TARGET)
+EOF
+
+echo "make run" > .compile
+;;
+
+3)
+mkdir src
+
+cat > src/main.cpp <<EOF
+#include <iostream>
+
+int main() {
+    std::cout << "Hello, World!" << std::endl;
+}
+EOF
+
+cat > Makefile <<EOF
+CXX=g++
+CXXFLAGS=-Wall -Wextra -g
+
+TARGET=$NAME
+SRC=\$(wildcard src/*.cpp)
+
+all:
+\t\$ (CXX) \$(CXXFLAGS) \$(SRC) -o \$(TARGET)
+
+run: all
+\t./\$(TARGET)
+
+clean:
+\trm -f \$(TARGET)
+EOF
+
+echo "make run" > .compile
+;;
+
+4)
+mkdir src
+
+cat > src/main.py <<EOF
+def main():
+    print("Hello, World!")
+
+if __name__ == "__main__":
+    main()
+EOF
+
+python3 -m venv .venv
+
+touch requirements.txt
+
+cat > .gitignore <<EOF
+.venv/
+__pycache__/
+EOF
+
+echo "python3 src/main.py" > .compile
+;;
+
+5)
+mkdir src
+
+cat > src/Main.java <<EOF
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+EOF
+
+cat > Makefile <<EOF
+all:
+\tjavac src/Main.java
+
+run: all
+\tjava -cp src Main
+
+clean:
+\trm -f src/*.class
+EOF
+
+echo "make run" > .compile
+;;
+
+6)
+cargo init --name "$NAME"
+echo "cargo run" > .compile
+;;
+
+7)
+mkdir src
+
+cat > src/main.lua <<EOF
+print("Hello, World!")
+EOF
+
+echo "lua src/main.lua" > .compile
+;;
+
+8)
+npm create astro@latest . -- --template minimal --install
+echo "npm run dev" > .compile
+;;
+
+9)
+if ! command -v ng >/dev/null; then
+    echo "Angular CLI is not installed."
+    echo "Install it with:"
+    echo "npm install -g @angular/cli"
+    exit 1
+fi
+
+ng new . --skip-git --skip-install --routing --style css
+npm install
+echo "npm start" > .compile
+;;
+
+*)
+echo "Invalid choice."
+exit 1
+;;
+
+esac
+
+chmod +x .compile
+
+read -rp "Initialize git? (y/n): " GIT
+
+if [ "$GIT" = "y" ]; then
+    git init
+fi
+
+read -rp "Open in Neovim? (y/n): " OPEN
+
+if [ "$OPEN" = "y" ]; then
+    nvim .
+fi

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+free -h | awk '/^Mem:/ {
+    printf "󰍛 %s", $3, $2
+}'

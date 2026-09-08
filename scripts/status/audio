@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# Click actions: 1 = toggle mute, 4 = volume up, 5 = volume down
+case "$BLOCK_BUTTON" in
+    1) wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle ;;
+    4) wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ ;;
+    5) wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- ;;
+esac
+
+vol=$(wpctl get-volume @DEFAULT_AUDIO_SINK@)
+level=$(printf "%.0f" "$(echo "$vol" | awk '{print $2 * 100}')")
+
+if echo "$vol" | grep -q MUTED; then
+    icon="󰝟"
+elif [ "$level" -eq 0 ]; then
+    icon="󰕿"
+elif [ "$level" -le 50 ]; then
+    icon="󰖀"
+else
+    icon="󰕾"
+fi
+
+printf "%s %d%%" "$icon" "$level"

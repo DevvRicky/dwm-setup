@@ -1,0 +1,969 @@
+
+/* ============================================
+   PAVUCONTROL / GTK4 THEME
+   Dark Green + Sage + White
+   Fully Squared / No Rounded Corners
+   Built for X11 + dwm + picom
+   ============================================ */
+
+
+/* ---------- Color palette ---------- */
+
+@define-color bg #060805;
+@define-color bg_solid #060805;
+@define-color bg_raised #171b15;
+
+@define-color primary #82a471;
+@define-color primary_hover #9ba497;
+@define-color primary_active #657f58;
+@define-color primary_dim rgba(130, 164, 113, 0.18);
+
+@define-color secondary #9ba497;
+@define-color secondary_dim #737b75;
+
+@define-color fg #ffffff;
+@define-color fg_dim #9ba497;
+
+@define-color border rgba(130, 164, 113, 0.45);
+
+@define-color selection #3f5039;
+@define-color selection_hover #52634a;
+
+
+/* ---------- Base ---------- */
+
+window {
+    color: @fg;
+}
+
+* {
+    color: @fg;
+    outline-color: @primary;
+
+    /*
+     * Force regular/fallback icons toward monochrome white.
+     * YAMIS remains the primary icon theme through settings.ini.
+     */
+    -gtk-icon-filter: grayscale(1) brightness(0) invert(1);
+}
+
+label {
+    color: @fg;
+}
+
+label:disabled {
+    color: @fg_dim;
+}
+
+
+/* ---------- Main content ---------- */
+
+window > box,
+.background {
+    background-color: @bg;
+    color: @fg;
+}
+
+
+/* ---------- Notebook / Tabs ---------- */
+
+notebook {
+    background-color: @bg;
+}
+
+notebook > header {
+    background-color: @bg_solid;
+    border-bottom: 1px solid @border;
+}
+
+notebook > header > tabs > tab {
+    background-color: transparent;
+    color: @fg_dim;
+
+    padding: 8px 14px;
+
+    border: none;
+    border-bottom: 2px solid transparent;
+}
+
+notebook > header > tabs > tab:hover {
+    background-color: @primary_dim;
+    color: @fg;
+}
+
+notebook > header > tabs > tab:checked {
+    background-color: @bg;
+    color: @fg;
+
+    border-bottom: 2px solid @primary;
+}
+
+notebook > stack {
+    background-color: @bg;
+}
+
+
+/* ---------- Frames ---------- */
+
+frame {
+    background-color: @bg_raised;
+
+    border: 1px solid @border;
+    border-radius: 0;
+}
+
+frame > label {
+    color: @fg;
+}
+
+
+/* ---------- Volume sliders ---------- */
+
+scale {
+    padding: 6px 0;
+}
+
+scale trough {
+    background-color: rgba(255, 255, 255, 0.08);
+
+    border: none;
+    border-radius: 0;
+
+    min-height: 10px;
+}
+
+scale highlight {
+    background-color: @primary;
+
+    background-image: linear-gradient(
+        to right,
+        @primary_active,
+        @primary,
+        @primary_hover
+    );
+
+    border-radius: 0;
+    min-height: 10px;
+}
+
+scale fill {
+    background-color: @primary;
+    border-radius: 0;
+}
+
+scale slider {
+    background-color: @fg;
+
+    border: 2px solid @primary;
+    border-radius: 0;
+
+    min-width: 16px;
+    min-height: 16px;
+}
+
+scale slider:hover {
+    background-color: @fg;
+    border-color: @primary_hover;
+}
+
+scale slider:active {
+    background-color: @secondary;
+    border-color: @primary_active;
+}
+
+
+/* ---------- Volume warning zone ---------- */
+
+scale.marks-before trough,
+scale.marks-after trough {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+
+/* ---------- Level meters ---------- */
+
+levelbar block {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-radius: 0;
+}
+
+levelbar block.filled {
+    background-color: @secondary;
+}
+
+levelbar block.filled:last-child {
+    background-color: @primary;
+}
+
+levelbar trough {
+    border-radius: 0;
+    min-height: 6px;
+}
+
+
+/* ---------- Comboboxes ---------- */
+
+combobox {
+    background-color: @bg_raised;
+    color: @fg;
+}
+
+combobox box button,
+combobox button.combo {
+    background-color: @bg_raised;
+    color: @fg;
+
+    border: 1px solid @border;
+    border-radius: 0;
+
+    padding: 4px 8px;
+}
+
+combobox box button:hover,
+combobox button.combo:hover {
+    background-color: @primary_dim;
+    border-color: @primary;
+}
+
+combobox popover,
+combobox list {
+    background-color: @bg_solid;
+
+    border: 1px solid @border;
+    border-radius: 0;
+}
+
+combobox listview > row {
+    color: @fg;
+    padding: 4px 8px;
+}
+
+combobox listview > row:hover {
+    background-color: @primary_dim;
+}
+
+combobox listview > row:selected {
+    background-color: @selection;
+    color: @fg;
+}
+
+
+/* ---------- Buttons ---------- */
+
+button {
+    background-color: rgba(130, 164, 113, 0.12);
+    color: @fg;
+
+    border: 1px solid @border;
+    border-radius: 0;
+
+    padding: 5px 10px;
+
+    transition: background-color 150ms ease;
+}
+
+button:hover {
+    background-color: @primary;
+    color: @bg;
+
+    border-color: @primary;
+}
+
+button:active,
+button:checked {
+    background-color: @primary_active;
+    color: @fg;
+
+    border-color: @primary_active;
+}
+
+button:disabled {
+    background-color: rgba(255, 255, 255, 0.04);
+    color: @fg_dim;
+
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+button.flat {
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+}
+
+button.flat:hover {
+    background-color: @primary_dim;
+    color: @fg;
+}
+
+
+/* ---------- Toggle buttons ---------- */
+
+togglebutton {
+    background-color: rgba(130, 164, 113, 0.12);
+
+    border: 1px solid @border;
+    border-radius: 0;
+}
+
+togglebutton:hover {
+    background-color: @primary_dim;
+    border-color: @primary;
+}
+
+togglebutton:checked {
+    background-color: @primary;
+    color: @bg;
+
+    border-color: @primary;
+}
+
+
+/* ---------- Checkbuttons / Radiobuttons ---------- */
+
+checkbutton check,
+radiobutton radio {
+    background-color: @bg_raised;
+
+    border: 1px solid @border;
+    border-radius: 0;
+}
+
+checkbutton check:checked,
+radiobutton radio:checked {
+    background-color: @primary;
+
+    border-color: @primary;
+    border-radius: 0;
+}
+
+checkbutton:hover check,
+radiobutton:hover radio {
+    border-color: @primary_hover;
+}
+
+
+/* ---------- Entries ---------- */
+
+entry {
+    background-color: @bg_raised;
+    color: @fg;
+
+    border: 1px solid @border;
+    border-radius: 0;
+
+    padding: 4px 8px;
+
+    caret-color: @primary;
+}
+
+entry:focus-within {
+    border-color: @primary;
+
+    box-shadow: 0 0 0 1px @primary;
+}
+
+entry selection {
+    background-color: @selection;
+    color: @fg;
+```css
+/* ============================================
+   PAVUCONTROL / GTK4 THEME
+   Dark Green + Sage + White
+   Fully Squared / No Rounded Corners
+   Built for X11 + dwm + picom
+   ============================================ */
+
+
+/* ---------- Color palette ---------- */
+
+@define-color bg #060805;
+@define-color bg_solid #060805;
+@define-color bg_raised #171b15;
+
+@define-color primary #82a471;
+@define-color primary_hover #9ba497;
+@define-color primary_active #657f58;
+@define-color primary_dim rgba(130, 164, 113, 0.18);
+
+@define-color secondary #9ba497;
+@define-color secondary_dim #737b75;
+
+@define-color fg #ffffff;
+@define-color fg_dim #9ba497;
+
+@define-color border rgba(130, 164, 113, 0.45);
+
+@define-color selection #3f5039;
+@define-color selection_hover #52634a;
+
+
+/* ---------- Base ---------- */
+
+window {
+    color: @fg;
+}
+
+* {
+    color: @fg;
+    outline-color: @primary;
+
+    /*
+     * Force regular/fallback icons toward monochrome white.
+     * YAMIS remains the primary icon theme through settings.ini.
+     */
+    -gtk-icon-filter: grayscale(1) brightness(0) invert(1);
+}
+
+label {
+    color: @fg;
+}
+
+label:disabled {
+    color: @fg_dim;
+}
+
+
+/* ---------- Main content ---------- */
+
+window > box,
+.background {
+    background-color: @bg;
+    color: @fg;
+}
+
+
+/* ---------- Notebook / Tabs ---------- */
+
+notebook {
+    background-color: @bg;
+}
+
+notebook > header {
+    background-color: @bg_solid;
+    border-bottom: 1px solid @border;
+}
+
+notebook > header > tabs > tab {
+    background-color: transparent;
+    color: @fg_dim;
+
+    padding: 8px 14px;
+
+    border: none;
+    border-bottom: 2px solid transparent;
+}
+
+notebook > header > tabs > tab:hover {
+    background-color: @primary_dim;
+    color: @fg;
+}
+
+notebook > header > tabs > tab:checked {
+    background-color: @bg;
+    color: @fg;
+
+    border-bottom: 2px solid @primary;
+}
+
+notebook > stack {
+    background-color: @bg;
+}
+
+
+/* ---------- Frames ---------- */
+
+frame {
+    background-color: @bg_raised;
+
+    border: 1px solid @border;
+    border-radius: 0;
+}
+
+frame > label {
+    color: @fg;
+}
+
+
+/* ---------- Volume sliders ---------- */
+
+scale {
+    padding: 6px 0;
+}
+
+scale trough {
+    background-color: rgba(255, 255, 255, 0.08);
+
+    border: none;
+    border-radius: 0;
+
+    min-height: 10px;
+}
+
+scale highlight {
+    background-color: @primary;
+
+    background-image: linear-gradient(
+        to right,
+        @primary_active,
+        @primary,
+        @primary_hover
+    );
+
+    border-radius: 0;
+    min-height: 10px;
+}
+
+scale fill {
+    background-color: @primary;
+    border-radius: 0;
+}
+
+scale slider {
+    background-color: @fg;
+
+    border: 2px solid @primary;
+    border-radius: 0;
+
+    min-width: 16px;
+    min-height: 16px;
+}
+
+scale slider:hover {
+    background-color: @fg;
+    border-color: @primary_hover;
+}
+
+scale slider:active {
+    background-color: @secondary;
+    border-color: @primary_active;
+}
+
+
+/* ---------- Volume warning zone ---------- */
+
+scale.marks-before trough,
+scale.marks-after trough {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+
+/* ---------- Level meters ---------- */
+
+levelbar block {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-radius: 0;
+}
+
+levelbar block.filled {
+    background-color: @secondary;
+}
+
+levelbar block.filled:last-child {
+    background-color: @primary;
+}
+
+levelbar trough {
+    border-radius: 0;
+    min-height: 6px;
+}
+
+
+/* ---------- Comboboxes ---------- */
+
+combobox {
+    background-color: @bg_raised;
+    color: @fg;
+}
+
+combobox box button,
+combobox button.combo {
+    background-color: @bg_raised;
+    color: @fg;
+
+    border: 1px solid @border;
+    border-radius: 0;
+
+    padding: 4px 8px;
+}
+
+combobox box button:hover,
+combobox button.combo:hover {
+    background-color: @primary_dim;
+    border-color: @primary;
+}
+
+combobox popover,
+combobox list {
+    background-color: @bg_solid;
+
+    border: 1px solid @border;
+    border-radius: 0;
+}
+
+combobox listview > row {
+    color: @fg;
+    padding: 4px 8px;
+}
+
+combobox listview > row:hover {
+    background-color: @primary_dim;
+}
+
+combobox listview > row:selected {
+    background-color: @selection;
+    color: @fg;
+}
+
+
+/* ---------- Buttons ---------- */
+
+button {
+    background-color: rgba(130, 164, 113, 0.12);
+    color: @fg;
+
+    border: 1px solid @border;
+    border-radius: 0;
+
+    padding: 5px 10px;
+
+    transition: background-color 150ms ease;
+}
+
+button:hover {
+    background-color: @primary;
+    color: @bg;
+
+    border-color: @primary;
+}
+
+button:active,
+button:checked {
+    background-color: @primary_active;
+    color: @fg;
+
+    border-color: @primary_active;
+}
+
+button:disabled {
+    background-color: rgba(255, 255, 255, 0.04);
+    color: @fg_dim;
+
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+button.flat {
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+}
+
+button.flat:hover {
+    background-color: @primary_dim;
+    color: @fg;
+}
+
+
+/* ---------- Toggle buttons ---------- */
+
+togglebutton {
+    background-color: rgba(130, 164, 113, 0.12);
+
+    border: 1px solid @border;
+    border-radius: 0;
+}
+
+togglebutton:hover {
+    background-color: @primary_dim;
+    border-color: @primary;
+}
+
+togglebutton:checked {
+    background-color: @primary;
+    color: @bg;
+
+    border-color: @primary;
+}
+
+
+/* ---------- Checkbuttons / Radiobuttons ---------- */
+
+checkbutton check,
+radiobutton radio {
+    background-color: @bg_raised;
+
+    border: 1px solid @border;
+    border-radius: 0;
+}
+
+checkbutton check:checked,
+radiobutton radio:checked {
+    background-color: @primary;
+
+    border-color: @primary;
+    border-radius: 0;
+}
+
+checkbutton:hover check,
+radiobutton:hover radio {
+    border-color: @primary_hover;
+}
+
+
+/* ---------- Entries ---------- */
+
+entry {
+    background-color: @bg_raised;
+    color: @fg;
+
+    border: 1px solid @border;
+    border-radius: 0;
+
+    padding: 4px 8px;
+
+    caret-color: @primary;
+}
+
+entry:focus-within {
+    border-color: @primary;
+
+    box-shadow: 0 0 0 1px @primary;
+}
+
+entry selection {
+    background-color: @selection;
+    color: @fg;
+}
+
+
+/* ---------- Lists / Rows ---------- */
+
+listview > row,
+list row {
+    color: @fg;
+    padding: 4px;
+
+    border-radius: 0;
+}
+
+listview > row:hover,
+list row:hover {
+    background-color: @primary_dim;
+
+    border-radius: 0;
+}
+
+listview > row:selected,
+list row:selected {
+    background-color: @selection;
+    color: @fg;
+
+    border-radius: 0;
+}
+
+
+/* ---------- Scrollbars ---------- */
+
+scrollbar {
+    background-color: transparent;
+}
+
+scrollbar trough {
+    background-color: rgba(255, 255, 255, 0.03);
+
+    border-radius: 0;
+}
+
+scrollbar slider {
+    background-color: @primary;
+
+    border-radius: 0;
+
+    min-width: 8px;
+    min-height: 8px;
+}
+
+scrollbar slider:hover {
+    background-color: @primary_hover;
+}
+
+scrollbar slider:active {
+    background-color: @primary_active;
+}
+
+
+/* ---------- Tooltips ---------- */
+
+tooltip {
+    background-color: @bg_solid;
+    color: @fg;
+
+    border: 1px solid @primary;
+    border-radius: 0;
+
+    padding: 4px 8px;
+}
+
+
+/* ---------- Menus / Popovers ---------- */
+
+popover {
+    background-color: @bg_solid;
+    color: @fg;
+
+    border: 1px solid @border;
+    border-radius: 0;
+
+    padding: 4px;
+}
+
+popover modelbutton,
+popover button.model {
+    color: @fg;
+
+    border-radius: 0;
+
+    padding: 4px 8px;
+}
+
+popover modelbutton:hover,
+popover button.model:hover {
+    background-color: @selection;
+    color: @fg;
+}
+
+
+/* ---------- Separators ---------- */
+
+separator {
+    background-color: @border;
+
+    min-height: 1px;
+    min-width: 1px;
+}
+
+
+/* ---------- Generic selection ---------- */
+
+*:selected {
+    background-color: @selection;
+    color: @fg;
+}
+```
+}
+
+
+/* ---------- Lists / Rows ---------- */
+
+listview > row,
+list row {
+    color: @fg;
+    padding: 4px;
+
+    border-radius: 0;
+}
+
+listview > row:hover,
+list row:hover {
+    background-color: @primary_dim;
+
+    border-radius: 0;
+}
+
+listview > row:selected,
+list row:selected {
+    background-color: @selection;
+    color: @fg;
+
+    border-radius: 0;
+}
+
+
+/* ---------- Scrollbars ---------- */
+
+scrollbar {
+    background-color: transparent;
+}
+
+scrollbar trough {
+    background-color: rgba(255, 255, 255, 0.03);
+
+    border-radius: 0;
+}
+
+scrollbar slider {
+    background-color: @primary;
+
+    border-radius: 0;
+
+    min-width: 8px;
+    min-height: 8px;
+}
+
+scrollbar slider:hover {
+    background-color: @primary_hover;
+}
+
+scrollbar slider:active {
+    background-color: @primary_active;
+}
+
+
+/* ---------- Tooltips ---------- */
+
+tooltip {
+    background-color: @bg_solid;
+    color: @fg;
+
+    border: 1px solid @primary;
+    border-radius: 0;
+
+    padding: 4px 8px;
+}
+
+
+/* ---------- Menus / Popovers ---------- */
+
+popover {
+    background-color: @bg_solid;
+    color: @fg;
+
+    border: 1px solid @border;
+    border-radius: 0;
+
+    padding: 4px;
+}
+
+popover modelbutton,
+popover button.model {
+    color: @fg;
+
+    border-radius: 0;
+
+    padding: 4px 8px;
+}
+
+popover modelbutton:hover,
+popover button.model:hover {
+    background-color: @selection;
+    color: @fg;
+}
+
+
+/* ---------- Separators ---------- */
+
+separator {
+    background-color: @border;
+
+    min-height: 1px;
+    min-width: 1px;
+}
+
+
+/* ---------- Generic selection ---------- */
+
+*:selected {
+    background-color: @selection;
+    color: @fg;
+}
+```
+

@@ -130,7 +130,7 @@ dotfiles/
 ### 1. Cloning
 
 ```sh
-git clone <your-repo-url> ~/dotfiles
+git clone https://github.com/DevvRicky/dwm-setup.git ~/dotfiles
 cd ~/dotfiles
 ```
 

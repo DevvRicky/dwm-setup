@@ -5,6 +5,7 @@ My personal Linux setup — a dynamic tiling window manager (dwm) rice on **Void
 ## Table of contents
 
 - [Overview](#overview)
+- [Screenshots](#screenshots)
 - [Repository layout](#repository-layout)
 - [Dependencies](#dependencies)
 - [Manual installation](#manual-installation)
@@ -31,6 +32,16 @@ My personal Linux setup — a dynamic tiling window manager (dwm) rice on **Void
 - **Compositor:** picom (GLX, blur)
 - **Theme:** custom dark green "DarkGreen" GTK theme for GTK 3.0 + 4.0
 - **Wallpaper:** `wallpapers/sanae.jpg`
+
+---
+
+## Screenshots
+
+| | |
+|:---:|:---:|
+| ![dwm1](Videos%20and%20ScreenShots/dwm1.png) | ![dwm2](Videos%20and%20ScreenShots/dwm2.png) |
+| ![dwm3](Videos%20and%20ScreenShots/dwm3.png) | ![dwm4](Videos%20and%20ScreenShots/dwm4.png) |
+| ![image](Videos%20and%20ScreenShots/image.png) | |
 
 ---
 

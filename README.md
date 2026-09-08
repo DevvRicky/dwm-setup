@@ -1,4 +1,4 @@
-# fierzza-dotfiles
+# dwm-dotfiles
 
 My personal Linux setup — a dynamic tiling window manager (dwm) rice on **Void Linux** with a dark green/sage aesthetic, the Sanae wallpaper, and a fully configured developer environment.
 
